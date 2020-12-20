@@ -89,20 +89,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</button>
 					</form>
 				</div>
+
+
+
+
+
 				<!-- //search -->
 				<!-- cart details -->
 				<div class="top_nav_right">
 					<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-						<form action="#" method="post" class="last">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="display" value="1">
-							<button class="w3view-cart" type="submit" name="submit" value="">
-								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-							</button>
-						</form>
+						<div class="col-lg-12 col-sm-12 col-12 main-section">
+							<div class="dropdown">
+								<button type="button" class="btn btn-primary" data-toggle="dropdown">
+									<i class="fa fa-shopping-cart" aria-hidden="true"></i> Giỏ hàng <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+								</button>
+								<div class="dropdown-menu">
+									<div class="row total-header-section">
+										<div class="col-lg-6 col-sm-6 col-6">
+											<i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+										</div>
+				
+										<?php $total = 0 ?>
+										@foreach((array) session('cart') as $id => $details)
+											<?php $total += $details['price'] * $details['quantity'] ?>
+										@endforeach
+				
+										<div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+											<p>Total: <span class="text-info">$ {{ $total }}</span></p>
+										</div>
+									</div>
+				
+									@if(session('cart'))
+										@foreach(session('cart') as $id => $details)
+											<div class="row cart-detail">
+												<div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+													<img src="{{ asset('images/'.$details['image']) }}" />
+												</div>
+												<div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+													<p>{{ $details['name'] }}</p>
+													<span class="price text-info"> ${{ $details['price'] }}</span> <span class="count"> Quantity:{{ $details['quantity'] }}</span>
+												</div>
+											</div>
+										@endforeach
+									@endif
+									<div class="row">
+										<div class="col-lg-12 col-sm-12 col-12 text-center checkout">
+											<a href="{{ url('product/cart') }}" class="btn btn-primary btn-block">View all</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- //cart details -->
+				
+				
+
+
+
+
+				{{-- gndv --}}
 				<div class="clearfix"></div>
 			</div>
 			<div class="clearfix"></div>
@@ -226,7 +273,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- navigation -->
 	<div class="ban-top">
 		<div class="container">
-			@include('Pages.product.show_category')
+			@yield('test1')
 
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">
@@ -1405,7 +1452,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //popup modal (for signin & signup)-->
 
 	<!-- cart-admin/page/js -->
-	<script src="{{asset('admin/page/js/minicart.js')}}"></script>
+	{{-- <script src="{{asset('admin/page/js/minicart.js')}}"></script> --}}
 	<script>
 		paypalm.minicartk.render(); //use only unique class names other than paypalm.minicartk.Also Replace same class name in css and minicart.min.admin/page/js
 
@@ -1419,13 +1466,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			for (i = 0; i < len; i++) {
 				total += items[i].get('quantity');
 			}
-
-			if (total < 3) {
+			if (total <2) {
 				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
 				evt.preventDefault();
 			}
 		});
-	</script>
+	</script>	
 	<!-- //cart-admin/page/js -->
 
 	<!-- price range (top products) -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductsController extends Controller
 {
@@ -16,8 +17,14 @@ class ProductsController extends Controller
     }
     public function index()
     {
-        $products = Product::all();
-        return view('Pages.product.products', compact('products'));
+         $categorys=Category::all();
+         $products = Product::all();
+         $productss=Product::all()->sortByDesc("product_id");   
+         $results = Product::select('category_id')->orderBy('category_id')->get();
+
+         return view('Pages.product.products', compact('products','categorys','productss','results'));
+
+
     }
 
     public function cart()
