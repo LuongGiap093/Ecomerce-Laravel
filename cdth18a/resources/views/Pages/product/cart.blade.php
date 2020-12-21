@@ -1,4 +1,4 @@
-@extends('FrontEnd.layout')
+@extends('Pages.checkout.layout')
 
 @section('title', 'Cart')
 
@@ -21,24 +21,24 @@
         @if(session('cart'))
             @foreach(session('cart') as $id => $details)
 
-                <?php $total += $details['price'] * $details['quantity'] ?>
+                <?php $total += $details['price']*  $details['quantity'] ?>
 
                 <tr>
                     <td data-th="Product">
                         <div class="row">
                             <div class="col-sm-3 hidden-xs">
-                            <img src="{{ asset('images/'.$details['image']) }}" width="100" height="100" class="img-responsive"/>
+                            <img src="{{ asset('images/'.$details['image']) }}" width="100px" height="100px" class="img-responsive"/>
                             </div>
                             <div class="col-sm-9">
-                                <h4 class="nomargin">{{ $details['name'] }}</h4>
+                                <h4 class="nomargin"></h4>
                             </div>
                         </div>
                     </td>
-                    <td data-th="Price">${{ $details['price'] }}</td>
+                    <td data-th="Price">{{ $details['price'] }}</td>
                     <td data-th="Quantity">
                         <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity" />
                     </td>
-                    <td data-th="Subtotal" class="text-center">{{ number_format($details['price'] * $details['quantity']) }}</td>
+                    <td data-th="Subtotal" class="text-center">{{ number_format($details['price']*$details['quantity']) }}</td>
                     <td class="actions" data-th="">
                         <button class="btn btn-primary btn update-cart" data-id="{{ $id }}"><i class="fas fa-sync-alt"></i></button>
                         <button class="btn btn-danger btn remove-from-cart" data-id="{{ $id }}"><i class="fas fa-trash"></i></button>

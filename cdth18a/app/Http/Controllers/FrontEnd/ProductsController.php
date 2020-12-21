@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\FrontEnd;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-
+use Session;
 class ProductsController extends Controller
 {
     public function __construct()
@@ -26,10 +25,16 @@ class ProductsController extends Controller
 
 
     }
+    public function detailsproduct($id)
+    {
+    
+        $productview = Product::find($id);
+        return view('Pages.checkout.layout1', compact('productview'));
+    }
 
     public function cart()
     {   
-        return view('FrontEnd.cart');
+        return view('Pages.product.cart');
     }
     public function addToCart($id)
     {
@@ -48,9 +53,9 @@ class ProductsController extends Controller
 
             $cart = [
                     $id => [
-                        "name" => $product->name,
+                        "name" => $product->product_name,
                         "quantity" => 1,
-                        "price" => $product->price,
+                        "price" => $product->product_price,
                         "image" => $product->image
                     ]
             ];
@@ -73,9 +78,9 @@ class ProductsController extends Controller
 
         // if item not exist in cart then add to cart with quantity = 1
         $cart[$id] = [
-            "name" => $product->name,
+            "name" => $product->product_name,
             "quantity" => 1,
-            "price" => $product->price,
+            "price" => $product->product_price,
             "image" => $product->image
         ];
 

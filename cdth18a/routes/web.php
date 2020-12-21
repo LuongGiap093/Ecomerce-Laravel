@@ -36,10 +36,14 @@ Route::group(['prefix' => 'product', 'namespace' => 'FrontEnd'], function() {
 Route::get('/', 'ProductsController@index');
 Route::get('cart', 'ProductsController@cart');
 Route::get('add-to-cart/{id}', 'ProductsController@addToCart');
+Route::get('detailsproduct/{id}', 'ProductsController@detailsproduct');
+
 Route::patch('update-cart', 'ProductsController@update');
 Route::delete('remove-from-cart', 'ProductsController@remove');
 });
-
+// Route::group(['prefix' => 'product'], function() {
+// 	Route::get('/', function() {return view('Pages.layout');})->name('welcome');
+// });
 /*
 GET	    /product	        		index	product.index
 GET	    /product/create	    		create	product.create
