@@ -3,8 +3,8 @@
 @section('title', 'Cart')
 
 @section('content')
-
-    <table id="cart" class="table table-hover table-condensed">
+        <span id="status"></span>
+    <table id="cart" class="table table-hover table-condensed">    
         <thead>
         <tr>
             <th style="width:50%">Product</th>
@@ -30,7 +30,7 @@
                             <img src="{{ asset('images/'.$details['image']) }}" width="100px" height="100px" class="img-responsive"/>
                             </div>
                             <div class="col-sm-9">
-                                <h4 class="nomargin"></h4>
+                                <h4 class="nomargin">{{ $details['name'] }}</h4>
                             </div>
                         </div>
                     </td>
@@ -38,10 +38,11 @@
                     <td data-th="Quantity">
                         <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity" />
                     </td>
-                    <td data-th="Subtotal" class="text-center">{{ number_format($details['price']*$details['quantity']) }}</td>
+                    <td data-th="Subtotal" class="text-center"><span class="product-subtotal" >{{ number_format($details['price']*$details['quantity']) }}</span></td>
                     <td class="actions" data-th="">
-                        <button class="btn btn-primary btn update-cart" data-id="{{ $id }}"><i class="fas fa-sync-alt"></i></button>
-                        <button class="btn btn-danger btn remove-from-cart" data-id="{{ $id }}"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-danger btn-sm remove-from-cart" data-id="{{ $id }}"><i class="fa fa-trash-o"></i></button>
+                        <i class="fa fa-circle-o-notch fa-spin btn-loading" style="font-size:24px; display: none"></i>
                     </td>
                 </tr>
             @endforeach
@@ -50,55 +51,23 @@
         </tbody>
         <tfoot>
         <tr class="visible-xs">
-            <td class="text-center"><strong>Tạm tính {{ number_format($total) }}đ</strong></td>
+            <td class="text-center"><strong><span class="cart-total">Tạm tính {{ number_format($total) }}đ</span></strong></td>
         </tr>
         <tr>
-            <td><a href="{{ url('/product') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a></td>
+            <td><a href="{{ url('/product') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a></td>       
             <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center"><strong>Tổng tiền {{ number_format($total) }}đ</strong></td>
+            <td class="hidden-xs text-center"><strong><span class="cart-total">Tổng tiền {{ number_format($total) }}đ</span></strong></td> 
         </tr>
+        <tr>
+            <td colspan="4" class="hidden-xs"></td>
+            <td><a href="{{ url('/product') }}" class="btn btn-warning"><i  ></i>Thanh toán</a></td>       
+         
+        </tr>
+        
+        
         </tfoot>
+        </div>
+
     </table>
-
-@endsection
-
-@section('scripts')
-
-
-    <script type="text/javascript">
-
-        $(".update-cart").click(function (e) {
-           e.preventDefault();
-
-           var ele = $(this);
-
-            $.ajax({
-               url: '{{ url('update-cart') }}',
-               method: "patch",
-               data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id"), quantity: ele.parents("tr").find(".quantity").val()},
-               success: function (response) {
-                   window.location.reload();
-               }
-            });
-        });
-
-        $(".remove-from-cart").click(function (e) {
-            e.preventDefault();
-
-            var ele = $(this);
-
-            if(confirm("Are you sure")) {
-                $.ajax({
-                    url: '{{ url('remove-from-cart') }}',
-                    method: "DELETE",
-                    data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id")},
-                    success: function (response) {
-                        window.location.reload();
-                    }
-                });
-            }
-        });
-
-    </script>
 
 @endsection

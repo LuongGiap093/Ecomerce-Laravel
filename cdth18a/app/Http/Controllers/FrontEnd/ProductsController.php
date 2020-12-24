@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
-use Session;
+
 class ProductsController extends Controller
 {
     public function __construct()
@@ -30,6 +30,12 @@ class ProductsController extends Controller
     
         $productview = Product::find($id);
         return view('Pages.checkout.layout1', compact('productview'));
+    }
+    public function search(Request $request)
+    {
+   
+        $productss=Product::where('product_name','like','%'.$request->key.'%')->orWhere('product_price',$request->key)->get();
+        return view('Pages.product.search',compact('productss'));
     }
 
     public function cart()
@@ -93,11 +99,8 @@ class ProductsController extends Controller
         if($request->id and $request->quantity)
         {
             $cart = session()->get('cart');
-
             $cart[$request->id]["quantity"] = $request->quantity;
-
             session()->put('cart', $cart);
-
             session()->flash('success', 'Cart updated successfully');
         }
     }
@@ -105,23 +108,18 @@ class ProductsController extends Controller
     public function remove(Request $request)
     {
         if($request->id) {
-
             $cart = session()->get('cart');
-
             if(isset($cart[$request->id])) {
-
                 unset($cart[$request->id]);
-
                 session()->put('cart', $cart);
             }
-
             session()->flash('success', 'Product removed successfully');
         }
     }
-
     public function clear(Request $request)
     {
         session()->forget('cart');
         session()->flash('success', 'Cart is clear');
     }
+    
 }

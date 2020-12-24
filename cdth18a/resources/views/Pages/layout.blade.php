@@ -48,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- header-bot-->
 			<div class="col-md-4 logo_agile">
 				<h1>
-					<a href="">
+					<a href="{{url('product')}}">
 						<span>G</span>rocery
 						<span>S</span>hoppy
 						<img src="admin/page/images/logo2.png" alt=" ">
@@ -81,19 +81,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 				<!-- //header lists -->
 				<!-- search -->
+
+
 				<div class="agileits_search">
-					<form action="#" method="post">
-						<input name="Search" type="search" placeholder="How can we help you today?" required="">
+					<form action="{{asset('product/search/')}}" method="get"> 
+						<input  type="search" name="key" placeholder="Tìm kiếm" required="">
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 							<span class="fa fa-search" aria-hidden="true"> </span>
 						</button>
 					</form>
 				</div>
-
-
-
-
-
+				
 				<!-- //search -->
 				<!-- cart details -->
 				<div class="top_nav_right">
@@ -145,10 +143,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- //cart details -->
 				
 				
-
-
-
-
 				{{-- gndv --}}
 				<div class="clearfix"></div>
 			</div>
@@ -1452,7 +1446,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //popup modal (for signin & signup)-->
 
 	<!-- cart-admin/page/js -->
-	{{-- <script src="{{asset('admin/page/js/minicart.js')}}"></script> --}}
+	 <script src="{{asset('admin/page/js/minicart.js')}}"></script>
 	<script>
 		paypalm.minicartk.render(); //use only unique class names other than paypalm.minicartk.Also Replace same class name in css and minicart.min.admin/page/js
 
@@ -1471,7 +1465,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				evt.preventDefault();
 			}
 		});
-	</script>	
+	</script>		
 	<!-- //cart-admin/page/js -->
 
 	<!-- price range (top products) -->

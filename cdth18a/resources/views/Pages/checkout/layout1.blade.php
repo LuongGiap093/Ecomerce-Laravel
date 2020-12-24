@@ -225,7 +225,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- navigation -->
 	<div class="ban-top">
 		<div class="container">
-			@yield('test1')
+
+			@yield('test')
 
 			<div class="top_nav_left">
 				<nav class="navbar navbar-default">

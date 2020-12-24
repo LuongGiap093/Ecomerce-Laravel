@@ -2,7 +2,7 @@
 
 @section('title', 'detailsproduct')
 
-@section('test1')
+@section('test')
 <div class="banner-bootom-w3-agileits">
     <div class="container">
         <!-- tittle heading -->

@@ -37,9 +37,12 @@ Route::get('/', 'ProductsController@index');
 Route::get('cart', 'ProductsController@cart');
 Route::get('add-to-cart/{id}', 'ProductsController@addToCart');
 Route::get('detailsproduct/{id}', 'ProductsController@detailsproduct');
+Route::get('search','ProductsController@search');
+
 
 Route::patch('update-cart', 'ProductsController@update');
 Route::delete('remove-from-cart', 'ProductsController@remove');
+
 });
 // Route::group(['prefix' => 'product'], function() {
 // 	Route::get('/', function() {return view('Pages.layout');})->name('welcome');
